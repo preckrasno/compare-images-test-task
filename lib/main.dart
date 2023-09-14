@@ -1,3 +1,4 @@
+import 'package:compare_images/ui/pages/image_selection/image_selection_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,6 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Compare Images",
+      home: ImageSelectionPage(),
     );
   }
 }
