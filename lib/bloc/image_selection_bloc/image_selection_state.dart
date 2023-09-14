@@ -1,10 +1,10 @@
 part of 'image_selection_bloc.dart';
 
-sealed class ImageSelectionState extends Equatable {
+sealed class ImageSelectionState {
   const ImageSelectionState();
-  
-  @override
-  List<Object> get props => [];
 }
 
 final class ImageSelectionInitial extends ImageSelectionState {}
+
+final class ImageSelectionNavigateToCompareImagesState
+    extends ImageSelectionState {}

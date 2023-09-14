@@ -1,6 +1,7 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:compare_images/ui/pages/image_selection/image_selection_page.dart';
-import 'package:equatable/equatable.dart';
 
 part 'image_selection_event.dart';
 part 'image_selection_state.dart';
@@ -10,8 +11,16 @@ part 'image_selection_state.dart';
 class ImageSelectionBloc
     extends Bloc<ImageSelectionEvent, ImageSelectionState> {
   ImageSelectionBloc() : super(ImageSelectionInitial()) {
-    on<ImageSelectionEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    on<ImageSelectionEvent>((event, emit) {});
+    on<ImageSelectionNavigateToCompareImagesEvent>(
+      _onImageSelectionNavigateToCompareImagesEvent,
+    );
+  }
+
+  FutureOr<void> _onImageSelectionNavigateToCompareImagesEvent(
+    ImageSelectionNavigateToCompareImagesEvent event,
+    Emitter<ImageSelectionState> emit,
+  ) {
+    emit(ImageSelectionNavigateToCompareImagesState());
   }
 }

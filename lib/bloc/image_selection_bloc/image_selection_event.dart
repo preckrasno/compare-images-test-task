@@ -1,8 +1,10 @@
 part of 'image_selection_bloc.dart';
 
-sealed class ImageSelectionEvent extends Equatable {
+sealed class ImageSelectionEvent {
   const ImageSelectionEvent();
-
-  @override
-  List<Object> get props => [];
 }
+
+/// Event [ImageSelectionNavigateToCompareImagesEvent] is used to navigate
+/// to [CompareImagesPage].
+final class ImageSelectionNavigateToCompareImagesEvent
+    extends ImageSelectionEvent {}
