@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:bloc/bloc.dart';
-import 'package:compare_images/data/models/image_info.dart';
+import 'package:compare_images/data/models/image_detailed_info.dart';
 import 'package:compare_images/services/image_processing.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -14,14 +14,18 @@ part 'compare_summary_state.dart';
 /// Bloc [CompareSummaryBloc] responsible for handling events
 class CompareSummaryBloc
     extends Bloc<CompareSummaryEvent, CompareSummaryState> {
+  final XFile _image1;
+  final XFile _image2;
+
   /// Creates [CompareSummaryBloc] instance.
   CompareSummaryBloc({
     required XFile image1,
     required XFile image2,
-  }) : super(CompareSummaryInitial(
-          image1: image1,
-          image2: image2,
-        )) {
+  })  : _image1 = image1,
+        _image2 = image2,
+        super(
+          const CompareSummaryLoading(),
+        ) {
     on<CompareSummaryLoadEvent>(_onCompareSummaryLoadEvent);
   }
 
@@ -30,73 +34,62 @@ class CompareSummaryBloc
     Emitter<CompareSummaryState> emit,
   ) async {
     emit(
-      CompareSummaryLoading(
-        image1: state.image1,
-        image2: state.image2,
-      ),
+      const CompareSummaryLoading(),
     );
 
-    final File image1 = File(state.image1.path);
-    final File image2 = File(state.image2.path);
+    try {
+      final File image1 = File(_image1.path);
+      final File image2 = File(_image2.path);
 
-    // Get the image bytes
-    final Uint8List image1Bytes = await image1.readAsBytes();
-    final Uint8List image2Bytes = await image2.readAsBytes();
+      final ui.FrameInfo frameInfo1 = await _getFirstFrameInfo(image1);
+      final ui.FrameInfo frameInfo2 = await _getFirstFrameInfo(image2);
 
-    // Decode the image
-    final ui.Codec image1Codec = await ui.instantiateImageCodec(image1Bytes);
-    final ui.Codec image2Codec = await ui.instantiateImageCodec(image2Bytes);
+      final ImageDetailedInfo imageInfo1 =
+          await _extractImageInfo(image1, frameInfo1.image);
+      final ImageDetailedInfo imageInfo2 =
+          await _extractImageInfo(image2, frameInfo2.image);
 
-    // Get the first frame of the image
-    final ui.FrameInfo image1FrameInfo = await image1Codec.getNextFrame();
-    final ui.FrameInfo image2FrameInfo = await image2Codec.getNextFrame();
+      emit(
+        CompareSummaryLoaded(
+          imageInfo1: imageInfo1,
+          imageInfo2: imageInfo2,
+        ),
+      );
+    } catch (e) {
+      final String message = "Failed to process images: $e";
+      emit(
+        CompareSummaryError(
+          message: message,
+        ),
+      );
+    }
+  }
 
-    // Get the image size in pixels
-    final ui.Size image1Size = ui.Size(
-      image1FrameInfo.image.width.toDouble(),
-      image1FrameInfo.image.height.toDouble(),
-    );
-    final ui.Size image2Size = ui.Size(
-      image2FrameInfo.image.width.toDouble(),
-      image2FrameInfo.image.height.toDouble(),
-    );
+  Future<ui.FrameInfo> _getFirstFrameInfo(File imageFile) async {
+    final Uint8List imageBytes = await imageFile.readAsBytes();
+    final ui.Codec imageCodec = await ui.instantiateImageCodec(imageBytes);
 
-    // Get average RGB values
-    final Map<String, double> avgRGBImage1 =
-        await image1FrameInfo.image.averageRGB();
-    final Map<String, double> avgRGBImage2 =
-        await image2FrameInfo.image.averageRGB();
+    return imageCodec.getNextFrame();
+  }
 
-    // Get the number of unique colors
-    final int uniqueColorsCountImage1 =
-        await image1FrameInfo.image.uniqueColorsCount();
-    final int uniqueColorsCountImage2 =
-        await image2FrameInfo.image.uniqueColorsCount();
-
-    // Get the image size in bytes
-    final int image1SizeInBytes = image1Bytes.lengthInBytes;
-    final int image2SizeInBytes = image2Bytes.lengthInBytes;
-
-    final ImageInfo imageInfo1 = ImageInfo(
-      path: image1.path,
-      width: image1Size.width.toInt(),
-      height: image1Size.height.toInt(),
-      bytes: image1SizeInBytes,
-      averageRed: avgRGBImage1['red']!.toInt(),
-      averageGreen: avgRGBImage1['green']!.toInt(),
-      averageBlue: avgRGBImage1['blue']!.toInt(),
-      numberOfUniqueColors: uniqueColorsCountImage1,
+  Future<ImageDetailedInfo> _extractImageInfo(
+      File imageFile, ui.Image image) async {
+    final ui.Size imageSize = ui.Size(
+      image.width.toDouble(),
+      image.height.toDouble(),
     );
 
-    final ImageInfo imageInfo2 = ImageInfo(
-      path: image2.path,
-      width: image2Size.width.toInt(),
-      height: image2Size.height.toInt(),
-      bytes: image2SizeInBytes,
-      averageRed: avgRGBImage2['red']!.toInt(),
-      averageGreen: avgRGBImage2['green']!.toInt(),
-      averageBlue: avgRGBImage2['blue']!.toInt(),
-      numberOfUniqueColors: uniqueColorsCountImage2,
+    final Map<String, double> avgRGB = await image.averageRGB();
+
+    return ImageDetailedInfo(
+      path: imageFile.path,
+      width: imageSize.width.toInt(),
+      height: imageSize.height.toInt(),
+      bytes: await imageFile.length(),
+      averageRed: avgRGB['red']!.toInt(),
+      averageGreen: avgRGB['green']!.toInt(),
+      averageBlue: avgRGB['blue']!.toInt(),
+      numberOfUniqueColors: await image.uniqueColorsCount(),
     );
   }
 }

@@ -1,27 +1,27 @@
 import 'dart:io';
 
+import 'package:compare_images/data/models/image_detailed_info.dart';
 import 'package:compare_images/theme/app_dimensions.dart';
 import 'package:compare_images/theme/app_texts.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 /// Widget [CompareSummaryWidget] will be used to show the compare summary
 /// between two images
 class CompareSummaryWidget extends StatelessWidget {
   final void Function() _onTapBack;
-  final XFile _image1;
-  final XFile _image2;
+  final ImageDetailedInfo _imageInfo1;
+  final ImageDetailedInfo _imageInfo2;
 
   /// Constructor [CompareSummaryWidget] will be used to initialize the
   /// required parameters
   const CompareSummaryWidget({
     required void Function() onTapBack,
-    required XFile image1,
-    required XFile image2,
+    required ImageDetailedInfo imageInfo1,
+    required ImageDetailedInfo imageInfo2,
     super.key,
   })  : _onTapBack = onTapBack,
-        _image1 = image1,
-        _image2 = image2;
+        _imageInfo1 = imageInfo1,
+        _imageInfo2 = imageInfo2;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class CompareSummaryWidget extends StatelessWidget {
                   children: [
                     Image.file(
                       File(
-                        _image1.path,
+                        _imageInfo1.path,
                       ),
                       height: AppDimensions.height150,
                       width: AppDimensions.width150,
@@ -56,7 +56,7 @@ class CompareSummaryWidget extends StatelessWidget {
                   children: [
                     Image.file(
                       File(
-                        _image2.path,
+                        _imageInfo2.path,
                       ),
                       height: AppDimensions.height150,
                       width: AppDimensions.width150,

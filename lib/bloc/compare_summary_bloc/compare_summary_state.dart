@@ -1,34 +1,26 @@
 part of 'compare_summary_bloc.dart';
 
 sealed class CompareSummaryState {
-  final XFile image1;
-  final XFile image2;
-  const CompareSummaryState({
-    required this.image1,
-    required this.image2,
-  });
-}
-
-final class CompareSummaryInitial extends CompareSummaryState {
-  const CompareSummaryInitial({
-    required super.image1,
-    required super.image2,
-  });
+  const CompareSummaryState();
 }
 
 final class CompareSummaryLoading extends CompareSummaryState {
-  const CompareSummaryLoading({
-    required super.image1,
-    required super.image2,
-  });
+  const CompareSummaryLoading();
 }
 
 final class CompareSummaryLoaded extends CompareSummaryState {
+  final ImageDetailedInfo imageInfo1;
+  final ImageDetailedInfo imageInfo2;
   const CompareSummaryLoaded({
-    required super.image1,
-    required super.image2,
-    required this.result,
+    required this.imageInfo1,
+    required this.imageInfo2,
   });
+}
 
-  final double result;
+final class CompareSummaryError extends CompareSummaryState {
+  final String message;
+
+  const CompareSummaryError({
+    required this.message,
+  });
 }

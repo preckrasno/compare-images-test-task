@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-/// Class [ImageInfo] represents information about image.
-class ImageInfo extends Equatable {
+/// Class [ImageDetailedInfo] represents information about image.
+class ImageDetailedInfo extends Equatable {
   /// Path to image.
   final String path;
 
@@ -42,8 +42,8 @@ class ImageInfo extends Equatable {
         numberOfPixels,
       ];
 
-  /// Constructor [ImageInfo] will be used to initialize the required parameters
-  const ImageInfo({
+  /// Constructor [ImageDetailedInfo] will be used to initialize the required parameters
+  const ImageDetailedInfo({
     required this.path,
     required this.width,
     required this.height,
@@ -54,9 +54,9 @@ class ImageInfo extends Equatable {
     required this.numberOfUniqueColors,
   }) : numberOfPixels = width * height;
 
-  /// Method [copyWith] will be used to create a copy of the [ImageInfo]
+  /// Method [copyWith] will be used to create a copy of the [ImageDetailedInfo]
   /// instance
-  ImageInfo copyWith({
+  ImageDetailedInfo copyWith({
     String? path,
     int? width,
     int? height,
@@ -66,7 +66,7 @@ class ImageInfo extends Equatable {
     int? averageBlue,
     int? numberOfUniqueColors,
   }) {
-    return ImageInfo(
+    return ImageDetailedInfo(
       path: path ?? this.path,
       width: width ?? this.width,
       height: height ?? this.height,

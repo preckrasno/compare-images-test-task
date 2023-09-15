@@ -4,7 +4,10 @@ import 'package:compare_images/ui/pages/compare_summary/compare_summary_widget.d
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+/// [CompareSummaryConsumer] is a [StatelessWidget] that consumes
+/// [CompareSummaryBloc] and handles its states.
 class CompareSummaryConsumer extends StatelessWidget {
+  /// Constructor of [CompareSummaryConsumer] class.
   const CompareSummaryConsumer({super.key});
 
   @override
@@ -12,25 +15,52 @@ class CompareSummaryConsumer extends StatelessWidget {
     final navigationBloc = context.read<NavigationBloc>();
 
     return BlocConsumer<CompareSummaryBloc, CompareSummaryState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is CompareSummaryError) {
+          _handleFailureState(state, context);
+        }
+      },
+      buildWhen: (previous, current) {
+        return current is! CompareSummaryError;
+      },
       builder: (context, state) {
-        return WillPopScope(
-          onWillPop: () {
-            navigationBloc.add(NavigationPopPageEvent());
+        if (state is CompareSummaryLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
 
-            return Future.value(false);
-          },
-          child: CompareSummaryWidget(
-            onTapBack: _onTapBack(navigationBloc),
-            image1: state.image1,
-            image2: state.image2,
-          ),
-        );
+        if (state is CompareSummaryLoaded) {
+          return WillPopScope(
+            onWillPop: () {
+              navigationBloc.add(NavigationPopPageEvent());
+
+              return Future.value(false);
+            },
+            child: CompareSummaryWidget(
+              onTapBack: _onTapBack(navigationBloc),
+              imageInfo1: state.imageInfo1,
+              imageInfo2: state.imageInfo2,
+            ),
+          );
+        }
+        throw Exception('Unhandled state: $state');
       },
     );
   }
 
   void Function() _onTapBack(NavigationBloc navigationBloc) {
     return () => navigationBloc.add(NavigationPopPageEvent());
+  }
+
+  void _handleFailureState(
+    CompareSummaryError state,
+    BuildContext context,
+  ) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(state.message),
+      ),
+    );
   }
 }
