@@ -22,7 +22,10 @@ class ImageSelectionConsumer extends StatelessWidget {
         if (state is ImageSelectionNavigateToCompareImagesState) {
           navigationBloc.add(
             NavigationPushPageEvent(
-              CompareSummaryPage.page,
+              CompareSummaryPage.page(
+                image1: state.firstImage,
+                image2: state.secondImage,
+              ),
             ),
           );
         }

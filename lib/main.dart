@@ -10,7 +10,7 @@ void main() {
       create: (_) => NavigationBloc()
         ..add(
           NavigationPushPageEvent(
-            ImageSelectionPage.page,
+            ImageSelectionPage.page(),
           ),
         ),
       child: MyApp(),

@@ -9,7 +9,6 @@ class CompareSummaryConsumer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ = context.read<CompareSummaryBloc>();
     final navigationBloc = context.read<NavigationBloc>();
 
     return BlocConsumer<CompareSummaryBloc, CompareSummaryState>(
@@ -23,6 +22,8 @@ class CompareSummaryConsumer extends StatelessWidget {
           },
           child: CompareSummaryWidget(
             onTapBack: _onTapBack(navigationBloc),
+            image1: state.image1,
+            image2: state.image2,
           ),
         );
       },

@@ -7,6 +7,7 @@ class AppTexts {
       'Please select two images to compare';
   static const String selectImage1 = 'Select Image 1';
   static const String selectImage2 = 'Select Image 2';
+  static const String compareSummary = 'Compare Summary';
 
   const AppTexts._();
 }

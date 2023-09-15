@@ -6,8 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ImageSelectionPage extends StatelessWidget {
   const ImageSelectionPage({super.key});
 
-  static const Page<void> page =
-      MaterialPage<void>(child: ImageSelectionPage());
+  /// Creates [Page] instance.
+  static Page<void> page() =>
+      const MaterialPage<void>(child: ImageSelectionPage());
 
   @override
   Widget build(BuildContext context) {

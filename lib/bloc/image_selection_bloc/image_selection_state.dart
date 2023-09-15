@@ -30,10 +30,15 @@ final class ImageSelectionInitial extends ImageSelectionState {
 /// navigating to the [CompareSummaryPage].
 final class ImageSelectionNavigateToCompareImagesState
     extends ImageSelectionState {
+  @override
+  final XFile firstImage;
+  @override
+  final XFile secondImage;
+
   /// Creates [ImageSelectionNavigateToCompareImagesState] instance.
   const ImageSelectionNavigateToCompareImagesState({
-    required XFile firstImage,
-    required XFile secondImage,
+    required this.firstImage,
+    required this.secondImage,
   }) : super(
           firstImage: firstImage,
           secondImage: secondImage,

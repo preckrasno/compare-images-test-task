@@ -9,7 +9,7 @@ class AppRouter {
   ) {
     final List<Page<void>> pages = [...state.pages];
 
-    if (pages.isEmpty) return [ImageSelectionPage.page];
+    if (pages.isEmpty) return [ImageSelectionPage.page()];
 
     return pages;
   }
