@@ -14,23 +14,23 @@ final class ImageSelectionNavigateToCompareImagesEvent
 /// [ImageSelectionSelectFirstImageEvent] is the event of the
 /// [ImageSelectionBloc] when the user has selected first image.
 final class ImageSelectionSelectFirstImageEvent extends ImageSelectionEvent {
-  /// [imagePath] is the path of the image selected by the user.
-  final String? imagePath;
+  /// [image] is the path of the image selected by the user.
+  final XFile? image;
 
   /// Creates [ImageSelectionSelectFirstImageEvent] instance.
   const ImageSelectionSelectFirstImageEvent(
-    this.imagePath,
+    this.image,
   );
 }
 
 /// [ImageSelectionSelectSecondImageEvent] is the event of the
 /// [ImageSelectionBloc] when the user has selected second image.
 final class ImageSelectionSelectSecondImageEvent extends ImageSelectionEvent {
-  /// [imagePath] is the path of the image selected by the user.
-  final String? imagePath;
+  /// [image] is the path of the image selected by the user.
+  final XFile? image;
 
   /// Creates [ImageSelectionSelectSecondImageEvent] instance.
   const ImageSelectionSelectSecondImageEvent(
-    this.imagePath,
+    this.image,
   );
 }

@@ -3,16 +3,16 @@ part of 'image_selection_bloc.dart';
 /// [ImageSelectionState] is a sealed class representing the state of the
 /// [ImageSelectionBloc].
 sealed class ImageSelectionState {
-  /// [firstImagePath] is the path of the first image selected by the user.
-  final String? firstImagePath;
+  /// [firstImage] is the path of the first image selected by the user.
+  final XFile? firstImage;
 
-  /// [secondImagePath] is the path of the second image selected by the user.
-  final String? secondImagePath;
+  /// [secondImage] is the path of the second image selected by the user.
+  final XFile? secondImage;
 
   /// Creates [ImageSelectionState] instance.
   const ImageSelectionState({
-    required this.firstImagePath,
-    required this.secondImagePath,
+    required this.firstImage,
+    required this.secondImage,
   });
 }
 
@@ -20,8 +20,8 @@ sealed class ImageSelectionState {
 final class ImageSelectionInitial extends ImageSelectionState {
   /// Creates [ImageSelectionInitial] instance.
   const ImageSelectionInitial({
-    super.firstImagePath,
-    super.secondImagePath,
+    super.firstImage,
+    super.secondImage,
   });
 }
 
@@ -32,10 +32,10 @@ final class ImageSelectionNavigateToCompareImagesState
     extends ImageSelectionState {
   /// Creates [ImageSelectionNavigateToCompareImagesState] instance.
   const ImageSelectionNavigateToCompareImagesState({
-    required String firstImagePath,
-    required String secondImagePath,
+    required XFile firstImage,
+    required XFile secondImage,
   }) : super(
-          firstImagePath: firstImagePath,
-          secondImagePath: secondImagePath,
+          firstImage: firstImage,
+          secondImage: secondImage,
         );
 }

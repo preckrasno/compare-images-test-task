@@ -9,7 +9,7 @@ class CompareSummaryConsumer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final compareSummaryBloc = context.read<CompareSummaryBloc>();
+    final _ = context.read<CompareSummaryBloc>();
     final navigationBloc = context.read<NavigationBloc>();
 
     return BlocConsumer<CompareSummaryBloc, CompareSummaryState>(

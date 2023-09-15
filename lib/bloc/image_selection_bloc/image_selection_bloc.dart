@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:compare_images/ui/pages/compare_summary/compare_summary_page.dart';
 import 'package:compare_images/ui/pages/image_selection/image_selection_page.dart';
+import 'package:image_picker/image_picker.dart';
 
 part 'image_selection_event.dart';
 part 'image_selection_state.dart';
@@ -29,8 +30,8 @@ class ImageSelectionBloc
     if (_isBothImagesSelected()) {
       emit(
         ImageSelectionNavigateToCompareImagesState(
-          firstImagePath: state.firstImagePath ?? '',
-          secondImagePath: state.secondImagePath ?? '',
+          firstImage: state.firstImage ?? XFile(''),
+          secondImage: state.secondImage ?? XFile(''),
         ),
       );
     }
@@ -42,8 +43,8 @@ class ImageSelectionBloc
   ) {
     emit(
       ImageSelectionInitial(
-        firstImagePath: event.imagePath,
-        secondImagePath: state.secondImagePath,
+        firstImage: event.image,
+        secondImage: state.secondImage,
       ),
     );
   }
@@ -54,26 +55,26 @@ class ImageSelectionBloc
   ) {
     emit(
       ImageSelectionInitial(
-        firstImagePath: state.firstImagePath,
-        secondImagePath: event.imagePath,
+        firstImage: state.firstImage,
+        secondImage: event.image,
       ),
     );
   }
 
   bool _isBothImagesSelected() {
-    if (state.firstImagePath == null) {
+    if (state.firstImage == null) {
       return false;
     }
 
-    if (state.firstImagePath?.isEmpty ?? true) {
+    if (state.firstImage?.path.isEmpty ?? true) {
       return false;
     }
 
-    if (state.secondImagePath == null) {
+    if (state.secondImage == null) {
       return false;
     }
 
-    if (state.secondImagePath?.isEmpty ?? true) {
+    if (state.secondImage?.path.isEmpty ?? true) {
       return false;
     }
 
