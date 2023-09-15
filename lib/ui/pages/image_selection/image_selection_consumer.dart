@@ -5,7 +5,10 @@ import 'package:compare_images/ui/pages/image_selection/image_selection_widget.d
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+/// [ImageSelectionConsumer] is a [StatelessWidget] which uses [BlocConsumer] to
+/// listen to [ImageSelectionBloc] state changes and rebuilds the UI accordingly
 class ImageSelectionConsumer extends StatelessWidget {
+  /// [ImageSelectionConsumer] constructor
   const ImageSelectionConsumer({super.key});
 
   @override
@@ -26,6 +29,10 @@ class ImageSelectionConsumer extends StatelessWidget {
       builder: (context, state) {
         return ImageSelectionWidget(
           onCompareImagesPressed: _onCompareImagesPressed(imageSelectionBloc),
+          onImage1Selected: _onImage1Selected(imageSelectionBloc),
+          onImage2Selected: _onImage2Selected(imageSelectionBloc),
+          firstImagePath: state.firstImagePath,
+          secondImagePath: state.secondImagePath,
         );
       },
     );
@@ -34,7 +41,22 @@ class ImageSelectionConsumer extends StatelessWidget {
   void Function() _onCompareImagesPressed(
     ImageSelectionBloc imageSelectionBloc,
   ) {
-    return () =>
-        imageSelectionBloc.add(ImageSelectionNavigateToCompareImagesEvent());
+    return () => imageSelectionBloc.add(
+          ImageSelectionNavigateToCompareImagesEvent(),
+        );
+  }
+
+  void Function(String?) _onImage1Selected(
+      ImageSelectionBloc imageSelectionBloc) {
+    return (imagePath) => imageSelectionBloc.add(
+          ImageSelectionSelectFirstImageEvent(imagePath),
+        );
+  }
+
+  void Function(String?) _onImage2Selected(
+      ImageSelectionBloc imageSelectionBloc) {
+    return (imagePath) => imageSelectionBloc.add(
+          ImageSelectionSelectSecondImageEvent(imagePath),
+        );
   }
 }
