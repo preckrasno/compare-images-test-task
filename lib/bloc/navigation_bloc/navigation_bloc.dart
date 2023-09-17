@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'navigation_event.dart';
 part 'navigation_state.dart';
@@ -16,8 +16,10 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
 
   /// Handles the [NavigationPushPageEvent] by adding the new page to
   /// the state's pages list.
-  /// If [event.canPop] is false, the last page in the list is removed.
-  /// If [event.replace] is true, the pages list is cleared before adding
+  /// If [NavigationPushPageEvent.canPop] is false, the last page in the list is
+  /// removed.
+  /// If [NavigationPushPageEvent.replace] is true, the pages list is cleared
+  /// before adding
   /// the new page.
   FutureOr<void> _onNavigationPushPageEvent(
     NavigationPushPageEvent event,

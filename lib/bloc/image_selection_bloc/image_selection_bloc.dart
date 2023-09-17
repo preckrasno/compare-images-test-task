@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:compare_images/ui/pages/compare_summary/compare_summary_page.dart';
 import 'package:compare_images/ui/pages/image_selection/image_selection_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 part 'image_selection_event.dart';
@@ -18,9 +18,11 @@ class ImageSelectionBloc
       _onImageSelectionNavigateToCompareImagesEvent,
     );
     on<ImageSelectionSelectFirstImageEvent>(
-        _onImageSelectionSelectFirstImageEvent);
+      _onImageSelectionSelectFirstImageEvent,
+    );
     on<ImageSelectionSelectSecondImageEvent>(
-        _onImageSelectionSelectSecondImageEvent);
+      _onImageSelectionSelectSecondImageEvent,
+    );
   }
 
   FutureOr<void> _onImageSelectionNavigateToCompareImagesEvent(
@@ -30,8 +32,8 @@ class ImageSelectionBloc
     if (_isBothImagesSelected()) {
       emit(
         ImageSelectionNavigateToCompareImagesState(
-          firstImage: state.firstImage ?? XFile(''),
-          secondImage: state.secondImage ?? XFile(''),
+          firstImageToProcess: state.firstImage ?? XFile(''),
+          secondImageToProcess: state.secondImage ?? XFile(''),
         ),
       );
     }

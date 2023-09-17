@@ -3,7 +3,10 @@ import 'package:compare_images/ui/pages/image_selection/image_selection_consumer
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+/// [ImageSelectionPage] is a [StatelessWidget] which uses [BlocProvider] to
+/// provide [ImageSelectionBloc] to its children.
 class ImageSelectionPage extends StatelessWidget {
+  /// [ImageSelectionPage] constructor
   const ImageSelectionPage({super.key});
 
   /// Creates [Page] instance.
@@ -14,7 +17,7 @@ class ImageSelectionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ImageSelectionBloc(),
-      child: ImageSelectionConsumer(),
+      child: const ImageSelectionConsumer(),
     );
   }
 }

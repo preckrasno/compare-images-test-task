@@ -30,17 +30,19 @@ final class ImageSelectionInitial extends ImageSelectionState {
 /// navigating to the [CompareSummaryPage].
 final class ImageSelectionNavigateToCompareImagesState
     extends ImageSelectionState {
-  @override
-  final XFile firstImage;
-  @override
-  final XFile secondImage;
+  /// [firstImageToProcess] is the path of the first image selected by the user.
+  final XFile firstImageToProcess;
+
+  /// [secondImageToProcess] is the path of the second image selected by
+  /// the user.
+  final XFile secondImageToProcess;
 
   /// Creates [ImageSelectionNavigateToCompareImagesState] instance.
   const ImageSelectionNavigateToCompareImagesState({
-    required this.firstImage,
-    required this.secondImage,
+    required this.firstImageToProcess,
+    required this.secondImageToProcess,
   }) : super(
-          firstImage: firstImage,
-          secondImage: secondImage,
+          firstImage: firstImageToProcess,
+          secondImage: secondImageToProcess,
         );
 }

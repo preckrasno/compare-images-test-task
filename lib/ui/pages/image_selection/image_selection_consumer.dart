@@ -23,8 +23,8 @@ class ImageSelectionConsumer extends StatelessWidget {
           navigationBloc.add(
             NavigationPushPageEvent(
               CompareSummaryPage.page(
-                image1: state.firstImage,
-                image2: state.secondImage,
+                image1: state.firstImageToProcess,
+                image2: state.secondImageToProcess,
               ),
             ),
           );
@@ -51,14 +51,16 @@ class ImageSelectionConsumer extends StatelessWidget {
   }
 
   void Function(XFile?) _onImage1Selected(
-      ImageSelectionBloc imageSelectionBloc) {
+    ImageSelectionBloc imageSelectionBloc,
+  ) {
     return (image) => imageSelectionBloc.add(
           ImageSelectionSelectFirstImageEvent(image),
         );
   }
 
   void Function(XFile?) _onImage2Selected(
-      ImageSelectionBloc imageSelectionBloc) {
+    ImageSelectionBloc imageSelectionBloc,
+  ) {
     return (image) => imageSelectionBloc.add(
           ImageSelectionSelectSecondImageEvent(image),
         );

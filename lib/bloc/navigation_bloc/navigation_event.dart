@@ -8,8 +8,10 @@ part of 'navigation_bloc.dart';
 ///
 /// [NavigationPushPageEvent] is a subclass of [NavigationEvent] that represents
 /// a request to push a new page onto the navigation stack.
-/// It contains the [page] to be pushed, a boolean [canPop] indicating whether
-/// the new page can be popped off the stack, and a boolean [replace] indicating
+/// It contains the [NavigationPushPageEvent.page] to be pushed, a boolean
+/// [NavigationPushPageEvent.canPop] indicating whether
+/// the new page can be popped off the stack, and a boolean
+/// [NavigationPushPageEvent.replace] indicating
 /// whether the new page should replace the current page in the stack.
 ///
 /// [NavigationPopPageEvent] is a subclass of [NavigationEvent] that represents

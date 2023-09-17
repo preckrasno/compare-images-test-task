@@ -3,9 +3,10 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:bloc/bloc.dart';
 import 'package:compare_images/data/models/image_detailed_info.dart';
 import 'package:compare_images/services/image_processing.dart';
+import 'package:compare_images/ui/pages/compare_summary/compare_summary_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 part 'compare_summary_event.dart';
@@ -73,7 +74,9 @@ class CompareSummaryBloc
   }
 
   Future<ImageDetailedInfo> _extractImageInfo(
-      File imageFile, ui.Image image) async {
+    File imageFile,
+    ui.Image image,
+  ) async {
     final ui.Size imageSize = ui.Size(
       image.width.toDouble(),
       image.height.toDouble(),

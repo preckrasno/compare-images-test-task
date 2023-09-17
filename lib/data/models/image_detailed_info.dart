@@ -42,7 +42,8 @@ class ImageDetailedInfo extends Equatable {
         numberOfPixels,
       ];
 
-  /// Constructor [ImageDetailedInfo] will be used to initialize the required parameters
+  /// Constructor [ImageDetailedInfo] will be used to initialize the required
+  /// parameters
   const ImageDetailedInfo({
     required this.path,
     required this.width,
