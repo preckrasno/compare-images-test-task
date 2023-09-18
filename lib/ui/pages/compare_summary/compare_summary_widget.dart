@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:compare_images/data/models/image_detailed_info.dart';
 import 'package:compare_images/theme/app_dimensions.dart';
 import 'package:compare_images/theme/app_texts.dart';
+import 'package:compare_images/ui/widgets/rgb_histogram_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -76,6 +77,7 @@ class CompareSummaryWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.file(
                       File(
@@ -87,7 +89,9 @@ class CompareSummaryWidget extends StatelessWidget {
                     const SizedBox(height: AppDimensions.height32),
                     ...image1InfoList.map((info) {
                       return Padding(
-                        padding: const EdgeInsets.all(AppDimensions.padding8),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: AppDimensions.padding8,
+                        ),
                         child: Row(
                           children: [
                             Text('${info['label']}: '),
@@ -96,6 +100,14 @@ class CompareSummaryWidget extends StatelessWidget {
                         ),
                       );
                     }),
+                    const Text("${AppTexts.rgbHistogram}:"),
+                    RGBHistogramWidget(
+                      redData: _imageInfo1.redHistogram,
+                      greenData: _imageInfo1.greenHistogram,
+                      blueData: _imageInfo1.blueHistogram,
+                      height: AppDimensions.height150,
+                      width: AppDimensions.width150,
+                    ),
                   ],
                 ),
                 Column(
@@ -111,7 +123,9 @@ class CompareSummaryWidget extends StatelessWidget {
                     const SizedBox(height: AppDimensions.height32),
                     ...image2InfoList.map((info) {
                       return Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: AppDimensions.padding8,
+                        ),
                         child: Row(
                           children: [
                             Text('${info['label']}: '),
@@ -120,6 +134,14 @@ class CompareSummaryWidget extends StatelessWidget {
                         ),
                       );
                     }),
+                    const Text("${AppTexts.rgbHistogram}:"),
+                    RGBHistogramWidget(
+                      redData: _imageInfo2.redHistogram,
+                      greenData: _imageInfo2.greenHistogram,
+                      blueData: _imageInfo2.blueHistogram,
+                      height: AppDimensions.height150,
+                      width: AppDimensions.width150,
+                    ),
                   ],
                 ),
               ],

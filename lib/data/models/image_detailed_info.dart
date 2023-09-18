@@ -29,6 +29,15 @@ class ImageDetailedInfo extends Equatable {
   /// Number of pixels in image.
   final int numberOfPixels;
 
+  /// Histogram for red channel.
+  final List<int> redHistogram;
+
+  /// Histogram for green channel.
+  final List<int> greenHistogram;
+
+  /// Histogram for blue channel.
+  final List<int> blueHistogram;
+
   @override
   List<Object?> get props => [
         path,
@@ -40,6 +49,9 @@ class ImageDetailedInfo extends Equatable {
         averageBlue,
         numberOfUniqueColors,
         numberOfPixels,
+        redHistogram,
+        greenHistogram,
+        blueHistogram,
       ];
 
   /// Constructor [ImageDetailedInfo] will be used to initialize the required
@@ -53,6 +65,9 @@ class ImageDetailedInfo extends Equatable {
     required this.averageGreen,
     required this.averageBlue,
     required this.numberOfUniqueColors,
+    required this.redHistogram,
+    required this.greenHistogram,
+    required this.blueHistogram,
   }) : numberOfPixels = width * height;
 
   /// Method [copyWith] will be used to create a copy of the [ImageDetailedInfo]
@@ -66,6 +81,9 @@ class ImageDetailedInfo extends Equatable {
     int? averageGreen,
     int? averageBlue,
     int? numberOfUniqueColors,
+    List<int>? redHistogram,
+    List<int>? greenHistogram,
+    List<int>? blueHistogram,
   }) {
     return ImageDetailedInfo(
       path: path ?? this.path,
@@ -76,12 +94,21 @@ class ImageDetailedInfo extends Equatable {
       averageGreen: averageGreen ?? this.averageGreen,
       averageBlue: averageBlue ?? this.averageBlue,
       numberOfUniqueColors: numberOfUniqueColors ?? this.numberOfUniqueColors,
+      redHistogram: redHistogram != null
+          ? List.from(redHistogram)
+          : List.from(this.redHistogram),
+      greenHistogram: greenHistogram != null
+          ? List.from(greenHistogram)
+          : List.from(this.greenHistogram),
+      blueHistogram: blueHistogram != null
+          ? List.from(blueHistogram)
+          : List.from(this.blueHistogram),
     );
   }
 
   @override
   String toString() {
     // ignore: lines_longer_than_80_chars
-    return 'ImageInfo(path: $path, width: $width, height: $height, bytes: $bytes, averageRed: $averageRed, averageGreen: $averageGreen, averageBlue: $averageBlue, numberOfUniqueColors: $numberOfUniqueColors, numberOfPixels: $numberOfPixels)';
+    return 'ImageInfo(path: $path, width: $width, height: $height, bytes: $bytes, averageRed: $averageRed, averageGreen: $averageGreen, averageBlue: $averageBlue, numberOfUniqueColors: $numberOfUniqueColors, numberOfPixels: $numberOfPixels, redHistogram: $redHistogram, greenHistogram: $greenHistogram, blueHistogram: $blueHistogram)';
   }
 }

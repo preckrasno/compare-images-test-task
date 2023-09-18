@@ -16,6 +16,7 @@ class AppTexts {
   static const String averageBlue = 'Avg Blue';
   static const String uniqueColors = 'Unique Colors';
   static const String totalPixels = 'Total Pixels';
+  static const String rgbHistogram = 'RGB Histogram';
 
   const AppTexts._();
 }

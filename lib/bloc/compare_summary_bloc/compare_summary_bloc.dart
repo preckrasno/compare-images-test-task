@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:compare_images/data/models/image_detailed_info.dart';
+import 'package:compare_images/services/image_histogram.dart';
 import 'package:compare_images/services/image_processing.dart';
 import 'package:compare_images/ui/pages/compare_summary/compare_summary_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -83,6 +84,7 @@ class CompareSummaryBloc
     );
 
     final Map<String, double> avgRGB = await image.averageRGB();
+    final Map<String, List<int>> histograms = await image.calculateHistogram();
 
     return ImageDetailedInfo(
       path: imageFile.path,
@@ -93,6 +95,9 @@ class CompareSummaryBloc
       averageGreen: avgRGB['green']!.toInt(),
       averageBlue: avgRGB['blue']!.toInt(),
       numberOfUniqueColors: await image.uniqueColorsCount(),
+      redHistogram: histograms['red']!,
+      greenHistogram: histograms['green']!,
+      blueHistogram: histograms['blue']!,
     );
   }
 }
