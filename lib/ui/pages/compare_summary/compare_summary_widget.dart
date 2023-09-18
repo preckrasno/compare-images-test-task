@@ -31,23 +31,23 @@ class CompareSummaryWidget extends StatelessWidget {
 
   List<Map<String, dynamic>> _getImageInfoList(ImageDetailedInfo info) {
     return [
-      {'label': 'Width', 'value': '${info.width}px'},
-      {'label': 'Height', 'value': '${info.height}px'},
+      {'label': AppTexts.width, 'value': '${info.width}px'},
+      {'label': AppTexts.height, 'value': '${info.height}px'},
       {
-        'label': 'Size',
+        'label': AppTexts.size,
         'value': '${(info.bytes / _bytesPerKilobyte).toStringAsFixed(
           _decimalPlaces,
         )} KB',
       },
-      {'label': 'Avg Red', 'value': info.averageRed.toString()},
-      {'label': 'Avg Green', 'value': info.averageGreen.toString()},
-      {'label': 'Avg Blue', 'value': info.averageBlue.toString()},
+      {'label': AppTexts.averageRed, 'value': info.averageRed.toString()},
+      {'label': AppTexts.averageGreen, 'value': info.averageGreen.toString()},
+      {'label': AppTexts.averageBlue, 'value': info.averageBlue.toString()},
       {
-        'label': 'Unique Colors',
+        'label': AppTexts.uniqueColors,
         'value': _numberFormat.format(info.numberOfUniqueColors),
       },
       {
-        'label': 'Total Pixels',
+        'label': AppTexts.totalPixels,
         'value': _numberFormat.format(info.numberOfPixels),
       },
     ];
@@ -76,7 +76,6 @@ class CompareSummaryWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.file(
                       File(
@@ -88,7 +87,7 @@ class CompareSummaryWidget extends StatelessWidget {
                     const SizedBox(height: AppDimensions.height32),
                     ...image1InfoList.map((info) {
                       return Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(AppDimensions.padding8),
                         child: Row(
                           children: [
                             Text('${info['label']}: '),
