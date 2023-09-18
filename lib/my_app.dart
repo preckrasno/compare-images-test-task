@@ -3,6 +3,7 @@ import 'package:compare_images/navigation/app_router.dart';
 import 'package:compare_images/theme/app_texts.dart';
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// [MyApp] is the entry point of the application
@@ -14,6 +15,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return MaterialApp(
       title: AppTexts.compareImages,
       theme: ThemeData.dark(

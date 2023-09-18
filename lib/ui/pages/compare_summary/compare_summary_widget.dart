@@ -101,6 +101,9 @@ class CompareSummaryWidget extends StatelessWidget {
                       );
                     }),
                     const Text("${AppTexts.rgbHistogram}:"),
+                    const SizedBox(
+                      height: AppDimensions.height16,
+                    ),
                     RGBHistogramWidget(
                       redData: _imageInfo1.redHistogram,
                       greenData: _imageInfo1.greenHistogram,
@@ -135,6 +138,9 @@ class CompareSummaryWidget extends StatelessWidget {
                       );
                     }),
                     const Text("${AppTexts.rgbHistogram}:"),
+                    const SizedBox(
+                      height: AppDimensions.height16,
+                    ),
                     RGBHistogramWidget(
                       redData: _imageInfo2.redHistogram,
                       greenData: _imageInfo2.greenHistogram,
@@ -146,6 +152,7 @@ class CompareSummaryWidget extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(height: AppDimensions.height32),
           ],
         ),
       ),

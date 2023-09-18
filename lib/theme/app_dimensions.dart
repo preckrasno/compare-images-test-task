@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs
 
 class AppDimensions {
+  static const double height16 = 16;
   static const double height32 = 32;
   static const double height150 = 150;
 
