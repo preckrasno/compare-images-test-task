@@ -1,6 +1,6 @@
 # compare_images
 
-A new Flutter project.
+A Flutter test task for comparing images.
 
 ## Getting Started
 
